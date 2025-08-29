@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La Granja - Simulación 3D</title>
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="src/styles/main.css">
+    
+    <!-- Three.js y dependencias -->
+    <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div id="app"></div>
+    
+    <!-- Mensaje de carga -->
+    <div id="loading" class="loading">Cargando escena 3D...</div>
+    
+    <!-- Instrucciones de controles -->
+    <div class="controls-info">
+        <div>🖱️ Click izquierdo + arrastrar: Rotar vista</div>
+        <div>🖱️ Click derecho + arrastrar: Mover vista</div>
+        <div>🖱️ Rueda del ratón: Acercar/alejar</div>
+    </div>
+    
+    <!-- Script principal como módulo -->
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>
