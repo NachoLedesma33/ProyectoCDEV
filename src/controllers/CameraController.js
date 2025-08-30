@@ -17,14 +17,28 @@ export class CameraController {
 
   setupControls() {
     this.controls.enableDamping = true;
-    this.controls.dampingFactor = 0.05;
+    this.controls.dampingFactor = 0.1; // Aumentado para un movimiento más suave
     this.controls.minDistance = 30;
     this.controls.maxDistance = 2000;
-    this.controls.maxPolarAngle = Math.PI / 2;
+    
+    // Limitar el ángulo vertical para evitar ver por debajo del terreno
+    this.controls.minPolarAngle = 0; // No permitir mirar hacia abajo más allá del horizonte
+    this.controls.maxPolarAngle = Math.PI * 0.49; // Ligeramente menos de 90 grados para evitar el "flip"
+    
+    // Configuración de zoom
     this.controls.enableZoom = true;
     this.controls.zoomSpeed = 0.5;
     this.controls.enableSmoothZoom = true;
-    this.controls.smoothZoomSpeed = 2.0;
+    this.controls.smoothZoomSpeed = 1.5;
+    
+    // Configuración de rotación
+    this.controls.rotateSpeed = 0.5;
+    this.controls.enableRotate = true;
+    
+    // Configuración de paneo
+    this.controls.enablePan = true;
+    this.controls.panSpeed = 0.5;
+    this.controls.screenSpacePanning = true; // Mejor comportamiento en perspectiva
   }
 
   onWindowResize() {
