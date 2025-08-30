@@ -2,8 +2,12 @@ import * as THREE from 'three';
 
 export class Terrain {
   constructor(scene) {
+    if (!scene) {
+      throw new Error('Scene is required for Terrain constructor');
+    }
     this.scene = scene;
     this.terrainSize = 2000;
+    this.terrain = null;
     this.createTerrain();
   }
 
