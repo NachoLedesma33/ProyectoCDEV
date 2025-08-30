@@ -15,12 +15,14 @@ Este proyecto utiliza Three.js para crear visualizaciones 3D interactivas en el 
 ## Instalación
 
 1. Clona el repositorio:
+
    ```bash
    git clone https://github.com/tu-usuario/LaGranja.git
    cd LaGranja
    ```
 
 2. Instala las dependencias:
+
    ```bash
    npm install
    ```
