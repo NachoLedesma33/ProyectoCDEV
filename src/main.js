@@ -29,11 +29,26 @@ function init() {
   );
   
   // Inicializar terreno
+  console.log('Inicializando terreno...');
   terrain = new Terrain();
-  sceneController.add(terrain.mesh);
+  
+  // Asegurarse de que el terreno se haya creado correctamente
+  if (terrain && terrain.mesh) {
+    console.log('Añadiendo terreno a la escena...');
+    sceneController.add(terrain.mesh);
+  } else {
+    console.error('No se pudo crear el terreno');
+  }
   
   // Crear objetos de prueba (opcional, para desarrollo)
-  if (process.env.NODE_ENV === 'development') {
+  // Usar una variable global o una URL parameter para el modo desarrollo
+  const urlParams = new URLSearchParams(window.location.search);
+  const isDevelopment = urlParams.get('dev') === 'true' || 
+                       window.location.hostname === 'localhost' || 
+                       window.location.hostname === '127.0.0.1';
+  
+  if (isDevelopment) {
+    console.log('Modo desarrollo: Creando objetos de prueba...');
     createTestObjects();
   }
 
