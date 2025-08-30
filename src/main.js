@@ -30,14 +30,20 @@ function init() {
   
   // Inicializar terreno
   console.log('Inicializando terreno...');
-  terrain = new Terrain();
-  
-  // Asegurarse de que el terreno se haya creado correctamente
-  if (terrain && terrain.mesh) {
-    console.log('Añadiendo terreno a la escena...');
-    sceneController.add(terrain.mesh);
-  } else {
-    console.error('No se pudo crear el terreno');
+  try {
+    terrain = new Terrain(sceneController.scene);
+    console.log('Terreno inicializado correctamente');
+  } catch (error) {
+    console.error('Error al inicializar el terreno:', error);
+    // Crear un plano simple como respaldo
+    const geometry = new THREE.PlaneGeometry(100, 100);
+    const material = new THREE.MeshBasicMaterial({ 
+      color: 0x00ff00, 
+      side: THREE.DoubleSide 
+    });
+    const plane = new THREE.Mesh(geometry, material);
+    plane.rotation.x = -Math.PI / 2;
+    sceneController.scene.add(plane);
   }
   
   // Crear objetos de prueba (opcional, para desarrollo)
