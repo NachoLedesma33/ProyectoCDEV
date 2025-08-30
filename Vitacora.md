@@ -42,7 +42,7 @@ Este documento registra los cambios, mejoras y desafíos encontrados durante el 
 - [ ] Añadir objetos interactivos en el terreno
 - [ ] Implementar sistema de día/noche
 - [ ] Añadir efectos de iluminación dinámica
-- [ ] Optimizar el rendimiento para dispositivos móviles
+- [ ] Optimizar el rendimiento
 
 ---
 *Documento actualizado el 30/08/2025*
