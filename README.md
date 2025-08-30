@@ -10,7 +10,29 @@ Este proyecto utiliza Three.js para crear visualizaciones 3D interactivas en el 
 
 - Node.js (versión 14.x o superior)
 - npm (incluido con Node.js)
-- npm install three
+
+### Instalación de dependencias
+
+```bash
+# Instalar Three.js
+npm install three
+
+# Instalar dependencias de desarrollo para pruebas
+npm install --save-dev @babel/core @babel/preset-env @babel/preset-typescript @types/jest jest ts-jest
+```
+
+### Comandos de prueba disponibles
+
+```bash
+# Ejecutar tests
+npm test
+
+# Ejecutar tests en modo observación (se actualizan automáticamente)
+npm run test:watch
+
+# Generar reporte de cobertura de pruebas
+npm run test:coverage
+```
 
 ## Instalación
 
