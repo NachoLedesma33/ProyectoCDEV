@@ -5,6 +5,7 @@ import CameraController from './controllers/CameraController.js';
 import { Lights } from './utils/Lights.js';
 import { WindowResizer } from './utils/WindowResizer.js';
 import { Terrain } from './components/Terrain.js';
+import { ModelLoader } from './utils/ModelLoader.js';
 
 // Hacer THREE disponible globalmente para otros módulos que lo necesiten
 window.THREE = THREE;
@@ -13,7 +14,7 @@ window.THREE = THREE;
 let sceneController, cameraController, lights, terrain;
 
 // Inicializar la aplicación
-function init() {
+async function init() {
   // Inicializar controladores
   sceneController = new SceneController();
   cameraController = new CameraController(sceneController.renderer);
@@ -46,8 +47,24 @@ function init() {
     sceneController.scene.add(plane);
   }
   
-  // Crear objetos de prueba (opcional, para desarrollo)
-  // Usar una variable global o una URL parameter para el modo desarrollo
+  // Cargar y mostrar personajes
+  try {
+    console.log('Cargando personajes...');
+    const modelLoader = new ModelLoader();
+    
+    // Cargar el personaje granjero
+    const farmer = await modelLoader.loadCharacter('farmer');
+    farmer.model.position.set(0, 0, 0); // Posición inicial
+    sceneController.scene.add(farmer.model);
+    
+    // Opcional: Posicionar la cámara para ver mejor al personaje
+    cameraController.camera.position.set(0, 2, 5);
+    cameraController.camera.lookAt(0, 1, 0);
+    
+    console.log('Personajes cargados correctamente');
+  } catch (error) {
+    console.error('Error al cargar personajes:', error);
+  }
   const urlParams = new URLSearchParams(window.location.search);
   const isDevelopment = urlParams.get('dev') === 'true' || 
                        window.location.hostname === 'localhost' || 
@@ -59,10 +76,10 @@ function init() {
   }
 
   // Configuración del zoom personalizado
-  const minDistance = 15; // Mínima distancia de zoom
-  const maxDistance = 200; // Máxima distancia de zoom
-  const zoomStep = 5; // Cantidad de unidades que se acerca/aleja por paso de rueda
-  let targetDistance = 30; // Distancia objetivo inicial
+  const minDistance = 1500; // Mínima distancia de zoom
+  const maxDistance = 2000; // Máxima distancia de zoom
+  const zoomStep = 45; // Cantidad de unidades que se acerca/aleja por paso de rueda
+  let targetDistance = 3000; // Distancia objetivo inicial
 
   // Escuchar la rueda del ratón para el zoom personalizado
   sceneController.renderer.domElement.addEventListener(
@@ -100,13 +117,6 @@ function init() {
 
 // Función para crear objetos de prueba (solo en desarrollo)
 function createTestObjects() {
-  // Cubo de prueba
-  const geometry = new THREE.BoxGeometry(2, 2, 2);
-  const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
-  const cube = new THREE.Mesh(geometry, material);
-  cube.position.set(0, 5, 0);
-  cube.castShadow = true;
-  sceneController.add(cube);
 
   // Plano de prueba
   const planeGeometry = new THREE.PlaneGeometry(20, 20);
@@ -133,4 +143,28 @@ function animate() {
 }
 
 // Iniciar la aplicación cuando el DOM esté listo
-document.addEventListener("DOMContentLoaded", init);
+// Mostrar mensaje de carga
+const loadingElement = document.createElement('div');
+loadingElement.style.position = 'fixed';
+loadingElement.style.top = '10px';
+loadingElement.style.left = '10px';
+loadingElement.style.color = 'white';
+loadingElement.style.backgroundColor = 'rgba(0,0,0,0.7)';
+loadingElement.style.padding = '10px';
+loadingElement.style.borderRadius = '5px';
+loadingElement.style.zIndex = '1000';
+loadingElement.textContent = 'Cargando...';
+document.body.appendChild(loadingElement);
+
+// Iniciar la aplicación cuando el DOM esté listo
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    await init();
+    // Una vez cargado todo, eliminar el mensaje de carga
+    document.body.removeChild(loadingElement);
+  } catch (error) {
+    console.error('Error al iniciar la aplicación:', error);
+    loadingElement.textContent = `Error al cargar: ${error.message}`;
+    loadingElement.style.color = 'red';
+  }
+});
