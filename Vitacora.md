@@ -39,10 +39,28 @@ Este documento registra los cambios, mejoras y desafíos encontrados durante el 
 
 ## Próximas Mejoras
 
+- [x] Añadir modelos de personajes
+- [x] Añadir modelos de monstruos
 - [ ] Añadir objetos interactivos en el terreno
 - [ ] Implementar sistema de día/noche
 - [ ] Añadir efectos de iluminación dinámica
 - [ ] Optimizar el rendimiento
+- [ ] Añadir sonido ambiente
+- [ ] Añadir música de fondo
+- [ ] Añadir efectos de sonido para acciones del granjero
+- [ ] Añadir sistema de IA para los monstruos
+- [ ] Añadir sistema de IA para el granjero
 
 ---
 *Documento actualizado el 30/08/2025*
+
+---
+
+## 31 de Agosto 2025
+
+- Añadido el modelo del granjero
+- Añadida la configuración del modelo del granjero
+- Añadido el modelLoader.js
+
+---
+*Documento actualizado el 31/08/2025*
