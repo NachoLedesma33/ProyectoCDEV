@@ -4,20 +4,20 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 export class CameraController {
   constructor(renderer) {
     this.camera = new THREE.PerspectiveCamera(
-      45, // Reducir el campo de visión para un zoom más natural
+      75, // Reducir el campo de visión para un zoom más natural
       window.innerWidth / window.innerHeight,
       0.5,
-      2000 // Reducir la distancia máxima de renderizado
+      1500 // Reducir la distancia máxima de renderizado
     );
-    this.camera.position.set(0, 30, 50);
+    this.camera.position.set(50, 35, 50);
     this.terrainSize = 2000; // Tamaño del terreno para cálculos de límites
     
     this.controls = new OrbitControls(this.camera, renderer.domElement);
     
     // Configuración de zoom suavizado
-    this.zoomSpeed = 0.1;
+    this.zoomSpeed = 5;
     this.targetZoom = null;
-    this.zoomDamping = 0.1;
+    this.zoomDamping = 0.5;
     
     // Desactivar el zoom por defecto de OrbitControls
     this.controls.enableZoom = false;
@@ -30,7 +30,7 @@ export class CameraController {
 
   setupControls() {
     this.controls.enableDamping = true;
-    this.controls.dampingFactor = 0.1; // Aumentado para un movimiento más suave
+    this.controls.dampingFactor = 0.5; // Aumentado para un movimiento más suave
     this.controls.minDistance = 15; // Distancia mínima reducida
     this.controls.maxDistance = this.terrainSize * 0.8; // Máximo 80% del tamaño del terreno
     
@@ -61,7 +61,7 @@ export class CameraController {
       event.preventDefault();
       
       // Calcular el factor de zoom basado en la dirección del scroll
-      const delta = -event.deltaY * 0.0005; // Reducir la sensibilidad
+      const delta = -event.deltaY * 0.000000005; // Reducir la sensibilidad
       const currentZoom = this.camera.position.distanceTo(this.controls.target);
       
       // Aplicar una función de aceleración para un zoom más natural
@@ -87,7 +87,7 @@ export class CameraController {
         .add(direction.multiplyScalar(this.targetZoom));
       
       // Limitar la altura mínima de la cámara
-      newPosition.y = Math.max(5, newPosition.y);
+      newPosition.y = Math.max(10, newPosition.y);
     }, { passive: false });
   }
   
@@ -98,7 +98,7 @@ export class CameraController {
       const diff = this.targetZoom - currentZoom;
       
       // Si la diferencia es muy pequeña, detener la animación
-      if (Math.abs(diff) < 0.01) {
+      if (Math.abs(diff) < 0.1) {
         this.targetZoom = null;
       } else {
         // Aplicar zoom suavizado
