@@ -12,9 +12,7 @@ const modelConfig = {
       model: "characters/Farmer/farmer.fbx",
       scale: 0.01,
       animations: {
-        idle: "animations/farmerAnimations/idle.fbx",
-        walk: "animations/farmerAnimations/walk.fbx",
-        run: "animations/farmerAnimations/run.fbx",
+        idle: "characters/Farmer/idle.fbx",
       },
     },
 
