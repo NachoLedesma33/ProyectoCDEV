@@ -19,6 +19,7 @@
     "@babel/preset-env": "^7.28.3",
     "@babel/preset-typescript": "^7.27.1",
     "@types/jest": "^30.0.0",
+    "@types/three": "^0.180.0",
     "jest": "^30.1.1",
     "ts-jest": "^29.4.1"
   },
